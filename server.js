@@ -8,9 +8,14 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import cors from "cors";
 import path from "path";
+import { fileURLToPath } from "url";
 
 //configure env
 dotenv.config();
+
+//esmodule fix
+const __filename=fileURLToPath(import.meta.url);
+const __dirname=path.dirname(__filename);
 
 //databse config
 connectDB();
@@ -33,11 +38,6 @@ app.use("/api/v1/product", productRoutes);
 
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
-
-//rest api
-app.get("/", (req, res) => {
-  res.send("<h1>Welcome to ecommerce app</h1>");
 });
 
 //PORT
